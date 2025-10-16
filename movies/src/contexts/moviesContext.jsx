@@ -17,25 +17,35 @@ const MoviesContextProvider = (props) => {
     setFavorites(newFavorites)
   };
   
-  // We will use this function in the next step
   const removeFromFavorites = (movie) => {
     setFavorites( favorites.filter(
       (mId) => mId !== movie.id
     ) )
   };
-
+  
+  const [playlist, setPlaylist] = useState( [] )
+  const addToPlaylist = (movie) => {
+    setPlaylist(prev => {
+      const next = [...prev, movie];
+      console.log("playlist", next);
+      return next;
+    });
+  };
+ 
   const [myReviews, setMyReviews] = useState( {} ) 
   const addReview = (movie, review) => {
     setMyReviews( {...myReviews, [movie.id]: review } )
   };
   //console.log(myReviews);
-
+ 
  return (
     <MoviesContext.Provider
       value={{
         favorites,
         addToFavorites,
         removeFromFavorites,
+        addToPlaylist,
+        playlist,
         addReview,
       }}
     >
@@ -43,5 +53,5 @@ const MoviesContextProvider = (props) => {
     </MoviesContext.Provider>
   );
 }
-
+ 
 export default MoviesContextProvider;
